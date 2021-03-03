@@ -1013,12 +1013,20 @@ void CodeGen_ARM::visit(const Load *op) {
         const IntImm *add_b = add ? add->b.as<IntImm>() : nullptr;
 
         if ((mod_rem.modulus % stride->value) == 0) {
-            offset = mod_rem.remainder % stride->value;
+            offset = mod_imp(mod_rem.remainder, stride->value);
         } else if ((mod_rem.modulus == 1) && add_b) {
-            offset = add_b->value % stride->value;
-            if (offset < 0) {
-                offset += stride->value;
-            }
+            offset = mod_imp(add_b->value, stride->value);
+        }
+
+        // We need to guarantee that this new load does not cross any
+        // alignment boundaries that the original load did not already
+        // cross.
+        int old_max = (ramp->type.lanes() - 1) * stride->value;
+        int new_max = ramp->type.lanes() * stride->value - 1 - offset;
+        if (mod_imp(op->alignment.remainder, op->alignment.modulus) < offset ||
+            old_max / op->alignment.modulus != new_max / op->alignment.modulus) {
+            CodeGen_Posix::visit(op);
+            return;
         }
 
         if (offset) {
