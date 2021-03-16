@@ -48,7 +48,7 @@ function(add_halide_library TARGET)
     ##
 
     set(options C_BACKEND GRADIENT_DESCENT)
-    set(oneValueArgs FROM GENERATOR FUNCTION_NAME NAMESPACE USE_RUNTIME AUTOSCHEDULER ${EXTRA_OUTPUT_NAMES})
+    set(oneValueArgs FROM GENERATOR FUNCTION_NAME NAMESPACE USE_RUNTIME AUTOSCHEDULER HEADER ${EXTRA_OUTPUT_NAMES})
     set(multiValueArgs TARGETS FEATURES PARAMS PLUGINS)
     cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -143,6 +143,9 @@ function(add_halide_library TARGET)
     # Always emit a C header
     set(GENERATOR_OUTPUTS c_header)
     set(GENERATOR_OUTPUT_FILES "${TARGET}.h")
+    if (ARG_HEADER)
+        set(${${ARG_HEADER}} "${TARGET}.h" PARENT_SCOPE)
+    endif ()
 
     # Then either a C source, a set of object files, or a cross-compiled static library.
     if (ARG_C_BACKEND)
