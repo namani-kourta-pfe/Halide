@@ -243,7 +243,7 @@ function(add_halide_library TARGET)
 
     add_dependencies("${TARGET}" "${TARGET}.update")
 
-    target_include_directories("${TARGET}" INTERFACE "${CMAKE_CURRENT_BINARY_DIR}")
+    target_include_directories("${TARGET}" INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>")
     target_link_libraries("${TARGET}" INTERFACE "${ARG_USE_RUNTIME}")
 endfunction()
 
