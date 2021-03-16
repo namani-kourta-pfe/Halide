@@ -107,3 +107,20 @@ set_tests_properties(aot_static_generator_adams2019
                      PROPERTIES
                      WILL_FAIL TRUE
                      FAIL_REGULAR_EXPRESSION "Autoscheduler Halide::[A-Za-z0-9_]+ does not exist")
+
+##
+# Cross compiling test
+##
+
+if (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
+    add_test(NAME cross_compile_mingw
+             COMMAND
+             ${CMAKE_CTEST_COMMAND}
+             --build-and-test "${CMAKE_CURRENT_LIST_DIR}/xc" "${CMAKE_CURRENT_BINARY_DIR}/xc-mingw"
+             --build-generator Ninja
+             --build-options
+             "-DCMAKE_TOOLCHAIN_FILE:FILEPATH=${CMAKE_CURRENT_LIST_DIR}/../../cmake/toolchain.mingw-w64.cmake"
+             -Dxc_HOST_TOOLCHAIN_FILE:FILEPATH=
+             -DCMAKE_BUILD_TYPE=Release
+             --test-command ${CMAKE_CTEST_COMMAND})
+endif ()
