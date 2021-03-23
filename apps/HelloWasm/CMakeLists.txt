@@ -24,7 +24,7 @@ add_executable(reaction_diffusion_generator reaction_diffusion_generator.cpp)
 target_link_libraries(reaction_diffusion_generator PRIVATE Halide::Generator)
 
 set(features_simd -wasm_simd128)
-set(features_threads -wasm_threads)
+set(features_threads -wasm_pthreads)
 set(params_threads threads=true)
 set(params threads=false)
 foreach (simd IN ITEMS "" "_simd")

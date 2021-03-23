@@ -144,7 +144,7 @@ void define_enums(py::module &m) {
         .value("WasmSimd128", Target::Feature::WasmSimd128)
         .value("WasmSignExt", Target::Feature::WasmSignExt)
         .value("WasmSatFloatToInt", Target::Feature::WasmSatFloatToInt)
-        .value("WasmThreads", Target::Feature::WasmThreads)
+        .value("WasmPThreads", Target::Feature::WasmPThreads)
         .value("WasmBulkMemory", Target::Feature::WasmBulkMemory)
         .value("SVE", Target::Feature::SVE)
         .value("SVE2", Target::Feature::SVE2)

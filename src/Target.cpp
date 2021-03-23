@@ -381,7 +381,7 @@ const std::map<std::string, Target::Feature> feature_name_map = {
     {"wasm_simd128", Target::WasmSimd128},
     {"wasm_signext", Target::WasmSignExt},
     {"wasm_sat_float_to_int", Target::WasmSatFloatToInt},
-    {"wasm_threads", Target::WasmThreads},
+    {"wasm_pthreads", Target::WasmPThreads},
     {"wasm_bulk_memory", Target::WasmBulkMemory},
     {"sve", Target::SVE},
     {"sve2", Target::SVE2},
@@ -1009,7 +1009,7 @@ bool Target::get_runtime_compatible_target(const Target &other, Target &result) 
         MSAN,
         SoftFloatABI,
         TSAN,
-        WasmThreads,
+        WasmPThreads,
     }};
     // clang-format on
 

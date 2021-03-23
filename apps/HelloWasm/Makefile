@@ -29,21 +29,21 @@ $(BIN)/wasm_simd/runtime.a: $(GENERATOR_BIN)/reaction_diffusion_generator
 	@mkdir -p $(@D)
 	$< -r runtime -o $(@D) target=wasm-32-wasmrt-wasm_simd128
 
-$(BIN)/wasm_threads/reaction_diffusion_%.a: $(GENERATOR_BIN)/reaction_diffusion_generator
+$(BIN)/wasm_pthreads/reaction_diffusion_%.a: $(GENERATOR_BIN)/reaction_diffusion_generator
 	@mkdir -p $(@D)
-	$< -g reaction_diffusion_$* -o $(@D) target=wasm-32-wasmrt-wasm_threads-no_runtime threads=true
+	$< -g reaction_diffusion_$* -o $(@D) target=wasm-32-wasmrt-wasm_pthreads-no_runtime threads=true
 
-$(BIN)/wasm_threads/runtime.a: $(GENERATOR_BIN)/reaction_diffusion_generator
+$(BIN)/wasm_pthreads/runtime.a: $(GENERATOR_BIN)/reaction_diffusion_generator
 	@mkdir -p $(@D)
-	$< -r runtime -o $(@D) target=wasm-32-wasmrt-wasm_threads
+	$< -r runtime -o $(@D) target=wasm-32-wasmrt-wasm_pthreads
 
 $(BIN)/wasm_simd_threads/reaction_diffusion_%.a: $(GENERATOR_BIN)/reaction_diffusion_generator
 	@mkdir -p $(@D)
-	$< -g reaction_diffusion_$* -o $(@D) target=wasm-32-wasmrt-wasm_simd128-wasm_threads-no_runtime threads=true
+	$< -g reaction_diffusion_$* -o $(@D) target=wasm-32-wasmrt-wasm_simd128-wasm_pthreads-no_runtime threads=true
 
 $(BIN)/wasm_simd_threads/runtime.a: $(GENERATOR_BIN)/reaction_diffusion_generator
 	@mkdir -p $(@D)
-	$< -r runtime -o $(@D) target=wasm-32-wasmrt-wasm_simd128-wasm_threads
+	$< -r runtime -o $(@D) target=wasm-32-wasmrt-wasm_simd128-wasm_pthreads
 
 $(BIN)/$(HL_TARGET)/reaction_diffusion_%.a: $(GENERATOR_BIN)/reaction_diffusion_generator
 	@mkdir -p $(@D)
@@ -61,9 +61,9 @@ js/index_simd.js: core.cpp $(BIN)/wasm_simd/reaction_diffusion_init.a $(BIN)/was
 	@mkdir -p $(@D)
 	$(EMCC) $^ $(EMCC_FLAGS) -I $(BIN)/wasm_simd -o $@
 
-js/index_threads.js: core.cpp $(BIN)/wasm_threads/reaction_diffusion_init.a $(BIN)/wasm_threads/reaction_diffusion_update.a $(BIN)/wasm_threads/reaction_diffusion_render.a $(BIN)/wasm_threads/runtime.a
+js/index_threads.js: core.cpp $(BIN)/wasm_pthreads/reaction_diffusion_init.a $(BIN)/wasm_pthreads/reaction_diffusion_update.a $(BIN)/wasm_pthreads/reaction_diffusion_render.a $(BIN)/wasm_pthreads/runtime.a
 	@mkdir -p $(@D)
-	$(EMCC) $^ $(EMCC_THREADS_FLAGS) -I $(BIN)/wasm_threads -o $@
+	$(EMCC) $^ $(EMCC_THREADS_FLAGS) -I $(BIN)/wasm_pthreads -o $@
 
 js/index_simd_threads.js: core.cpp $(BIN)/wasm_simd_threads/reaction_diffusion_init.a $(BIN)/wasm_simd_threads/reaction_diffusion_update.a $(BIN)/wasm_simd_threads/reaction_diffusion_render.a $(BIN)/wasm_simd_threads/runtime.a
 	@mkdir -p $(@D)

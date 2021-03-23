@@ -117,7 +117,9 @@ string CodeGen_WebAssembly::mattrs() const {
         sep = ",";
     }
 
-    if (target.has_feature(Target::WasmThreads)) {
+    if (target.has_feature(Target::WasmPThreads)) {
+        // "WasmPThreads" doesn't directly affect LLVM codegen,
+        // but it does end up requiring atomics, so be sure to enable them.
         s << sep << ",+atomics";
         sep = ",";
     }

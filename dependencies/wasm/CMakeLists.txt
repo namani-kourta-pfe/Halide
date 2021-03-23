@@ -176,8 +176,13 @@ function(add_wasm_halide_test TARGET)
     if (Halide_TARGET MATCHES "wasm_simd128")
         list(APPEND WASM_SHELL_FLAGS "--experimental-wasm-simd")
     endif ()
-    if (Halide_TARGET MATCHES "wasm_threads")
-        list(APPEND WASM_SHELL_FLAGS "--experimental-wasm-threads")
+    if (Halide_TARGET MATCHES "wasm_pthreads")
+        # wasm_pthreads requires compilation with Emscripten, against a *browser*
+        # environment rather than a shell environment. (This is because the 'pthreads'
+        # support is an elaborate wrapper than Emscripten provides around WebWorkers.)
+        # Testing this would require a browser (headless or not), which our buildbots
+        # aren't prepared to deal with, so we'll just flag this as an error.
+        message(FATAL_ERROR "Halide doesn't support testing of wasm_pthreads under a wasm shell at this time.")
     endif ()
 
     add_halide_test("${TARGET}"
