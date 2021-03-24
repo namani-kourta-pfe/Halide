@@ -517,6 +517,9 @@ protected:
     /** Emit atomic store instructions? */
     bool emit_atomic_stores;
 
+    virtual void codegen_predicated_vector_load(const Load *op);
+    virtual void codegen_predicated_vector_store(const Store *op);
+
 private:
     /** All the values in scope at the current code location during
      * codegen. Use sym_push and sym_pop to access. */
@@ -556,9 +559,6 @@ private:
                                            const Buffer<> &image, const Parameter &param, const ModulusRemainder &alignment,
                                            llvm::Value *vpred = nullptr, bool slice_to_native = true);
     llvm::Value *codegen_dense_vector_load(const Load *load, llvm::Value *vpred = nullptr, bool slice_to_native = true);
-
-    virtual void codegen_predicated_vector_load(const Load *op);
-    virtual void codegen_predicated_vector_store(const Store *op);
 
     void codegen_atomic_store(const Store *op);
 

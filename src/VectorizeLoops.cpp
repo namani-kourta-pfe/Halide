@@ -372,30 +372,11 @@ class SerializeLoops : public IRMutator {
 class PredicateLoadStore : public IRMutator {
     string var;
     Expr vector_predicate;
-    bool in_hexagon;
-    const Target &target;
     int lanes;
     bool valid;
     bool vectorized;
 
     using IRMutator::visit;
-
-    bool should_predicate_store_load(int bit_size) {
-        if (in_hexagon) {
-            internal_assert(target.has_feature(Target::HVX))
-                << "We are inside a hexagon loop, but the target doesn't have hexagon's features\n";
-            return true;
-        } else if (target.arch == Target::X86) {
-            // Should only attempt to predicate store/load if the lane size is
-            // no less than 4
-            // TODO: disabling for now due to trunk LLVM breakage.
-            // See: https://github.com/halide/Halide/issues/3534
-            // return (bit_size == 32) && (lanes >= 4);
-            return false;
-        }
-        // For other architecture, do not predicate vector load/store
-        return false;
-    }
 
     Expr merge_predicate(Expr pred, const Expr &new_pred) {
         if (pred.type().lanes() == new_pred.type().lanes()) {
@@ -407,7 +388,7 @@ class PredicateLoadStore : public IRMutator {
     }
 
     Expr visit(const Load *op) override {
-        valid = valid && should_predicate_store_load(op->type.bits());
+        valid = valid && op->predicate.type().lanes() == lanes;
         if (!valid) {
             return op;
         }
@@ -435,7 +416,7 @@ class PredicateLoadStore : public IRMutator {
     }
 
     Stmt visit(const Store *op) override {
-        valid = valid && should_predicate_store_load(op->value.type().bits());
+        valid = valid && op->predicate.type().lanes() == lanes;
         if (!valid) {
             return op;
         }
@@ -472,9 +453,9 @@ class PredicateLoadStore : public IRMutator {
     }
 
 public:
-    PredicateLoadStore(string v, const Expr &vpred, bool in_hexagon, const Target &t)
-        : var(std::move(v)), vector_predicate(vpred), in_hexagon(in_hexagon), target(t),
-          lanes(vpred.type().lanes()), valid(true), vectorized(false) {
+    PredicateLoadStore(string v, const Expr &vpred)
+        : var(std::move(v)), vector_predicate(vpred), lanes(vpred.type().lanes()),
+        valid(true), vectorized(false) {
         internal_assert(lanes > 1);
     }
 
@@ -500,10 +481,6 @@ class VectorSubs : public IRMutator {
     // and broadcast. It depends on the current loop level and
     // is updated when vectorized_vars list is updated.
     std::map<string, Expr> replacements;
-
-    const Target &target;
-
-    bool in_hexagon;  // Are we inside the hexagon loop?
 
     // A scope containing lets and letstmts whose values became
     // vectors. Contains are original, non-vectorized expressions.
@@ -849,12 +826,12 @@ class VectorSubs : public IRMutator {
 
             Stmt predicated_stmt;
             if (vectorize_predicate) {
-                PredicateLoadStore p(vectorized_vars.front().name, cond, in_hexagon, target);
+                PredicateLoadStore p(vectorized_vars.front().name, cond);
                 predicated_stmt = p.mutate(then_case);
                 vectorize_predicate = p.is_vectorized();
             }
             if (vectorize_predicate && else_case.defined()) {
-                PredicateLoadStore p(vectorized_vars.front().name, !cond, in_hexagon, target);
+                PredicateLoadStore p(vectorized_vars.front().name, !cond);
                 predicated_stmt = Block::make(predicated_stmt, p.mutate(else_case));
                 vectorize_predicate = p.is_vectorized();
             }
@@ -1335,8 +1312,7 @@ class VectorSubs : public IRMutator {
     }
 
 public:
-    VectorSubs(const VectorizedVar &vv, bool in_hexagon, const Target &t)
-        : target(t), in_hexagon(in_hexagon) {
+    VectorSubs(const VectorizedVar &vv) {
         vectorized_vars.push_back(vv);
         update_replacements();
     }
@@ -1515,17 +1491,9 @@ public:
 
 // Vectorize all loops marked as such in a Stmt
 class VectorizeLoops : public IRMutator {
-    const Target &target;
-    bool in_hexagon;
-
     using IRMutator::visit;
 
     Stmt visit(const For *for_loop) override {
-        bool old_in_hexagon = in_hexagon;
-        if (for_loop->device_api == DeviceAPI::Hexagon) {
-            in_hexagon = true;
-        }
-
         Stmt stmt;
         if (for_loop->for_type == ForType::Vectorized) {
             const IntImm *extent = for_loop->extent.as<IntImm>();
@@ -1537,21 +1505,12 @@ class VectorizeLoops : public IRMutator {
             }
 
             VectorizedVar vectorized_var = {for_loop->name, for_loop->min, (int)extent->value};
-            stmt = VectorSubs(vectorized_var, in_hexagon, target).mutate(for_loop->body);
+            stmt = VectorSubs(vectorized_var).mutate(for_loop->body);
         } else {
             stmt = IRMutator::visit(for_loop);
         }
 
-        if (for_loop->device_api == DeviceAPI::Hexagon) {
-            in_hexagon = old_in_hexagon;
-        }
-
         return stmt;
-    }
-
-public:
-    VectorizeLoops(const Target &t)
-        : target(t), in_hexagon(false) {
     }
 };
 
@@ -1614,12 +1573,12 @@ class RemoveUnnecessaryAtomics : public IRMutator {
 
 }  // namespace
 
-Stmt vectorize_loops(const Stmt &stmt, const map<string, Function> &env, const Target &t) {
+Stmt vectorize_loops(const Stmt &stmt, const map<string, Function> &env) {
     // Limit the scope of atomic nodes to just the necessary stuff.
     // TODO: Should this be an earlier pass? It's probably a good idea
     // for non-vectorizing stuff too.
     Stmt s = LiftVectorizableExprsOutOfAllAtomicNodes(env).mutate(stmt);
-    s = VectorizeLoops(t).mutate(s);
+    s = VectorizeLoops().mutate(s);
     s = RemoveUnnecessaryAtomics().mutate(s);
     return s;
 }

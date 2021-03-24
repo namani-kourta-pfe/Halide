@@ -1,6 +1,7 @@
 #include "CodeGen_Posix.h"
 #include "ConciseCasts.h"
 #include "Debug.h"
+#include "Deinterleave.h"
 #include "IRMatch.h"
 #include "IRMutator.h"
 #include "IROperator.h"
@@ -80,6 +81,7 @@ protected:
     void visit(const NE *) override;
     void visit(const Select *) override;
     void codegen_vector_reduce(const VectorReduce *, const Expr &init) override;
+    void codegen_predicated_vector_store(const Store *) override;
     // @}
 };
 
@@ -574,6 +576,70 @@ void CodeGen_X86::codegen_vector_reduce(const VectorReduce *op, const Expr &init
     }
 
     CodeGen_Posix::codegen_vector_reduce(op, init);
+}
+
+class ContainsRamp : public IRVisitor {
+    using IRVisitor::visit;
+
+    void visit(const Ramp *r) override {
+        found = true;
+    }
+
+public:
+    bool found = false;
+};
+
+bool contains_ramp(const Expr &e) {
+    ContainsRamp finder;
+    e.accept(&finder);
+    return finder.found;
+}
+
+void CodeGen_X86::codegen_predicated_vector_store(const Store *op) {
+    if (op->index.type().lanes() == 1) {
+        CodeGen_Posix::codegen_predicated_vector_store(op);
+        return;
+    }
+
+    // LLVM generates pretty bad code for predicated vector stores,
+    // this is quite a bit faster.
+    debug(4) << "Scalarize predicated vector store\n";
+    Type value_type = op->value.type().element_of();
+    // If the predicate contains a ramp, generating the ramp will
+    // take some time, it's probably better to just scalarize the
+    // predicate (below).
+    Value *vpred = contains_ramp(op->predicate) ? nullptr : codegen(op->predicate);
+    Value *vval = codegen(op->value);
+    Value *vindex = codegen(op->index);
+    for (int i = 0; i < op->index.type().lanes(); i++) {
+        Constant *lane = ConstantInt::get(i32_t, i);
+        Value *p;
+        if (vpred) {
+            p = builder->CreateExtractElement(vpred, lane);
+        } else {
+            p = codegen(extract_lane(op->predicate, i));
+        }
+        if (p->getType() != i1_t) {
+            p = builder->CreateIsNotNull(p);
+        }
+
+        Value *v = builder->CreateExtractElement(vval, lane);
+        Value *idx = builder->CreateExtractElement(vindex, lane);
+        internal_assert(p && v && idx);
+
+        BasicBlock *true_bb = BasicBlock::Create(*context, "true_bb", function);
+        BasicBlock *after_bb = BasicBlock::Create(*context, "after_bb", function);
+        builder->CreateCondBr(p, true_bb, after_bb);
+
+        builder->SetInsertPoint(true_bb);
+
+        // Scalar
+        Value *ptr = codegen_buffer_pointer(op->name, value_type, idx);
+        builder->CreateAlignedStore(v, ptr, llvm::Align(value_type.bytes()));
+
+        builder->CreateBr(after_bb);
+        builder->SetInsertPoint(after_bb);
+    }
 }
 
 string CodeGen_X86::mcpu() const {
