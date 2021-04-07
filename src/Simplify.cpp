@@ -361,8 +361,9 @@ Stmt simplify_exprs(const Stmt &s) {
 }
 
 bool can_prove(Expr e, const Scope<Interval> &bounds) {
+    Expr the_orig = e;
     internal_assert(e.type().is_bool())
-        << "Argument to can_prove is not a boolean Expr: " << e << "\n";
+    << "Argument to can_prove is not a boolean Expr: " << e << "\n";
 
     e = remove_likelies(e);
     e = common_subexpression_elimination(e);
@@ -371,38 +372,39 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
 
     e = simplify(e, true, bounds);
 
+    struct RenameVariables : public IRMutator {
+        using IRMutator::visit;
+
+        Expr visit(const Variable *op) override {
+            auto it = vars.find(op->name);
+            if (lets.contains(op->name)) {
+                return Variable::make(op->type, lets.get(op->name));
+            } else if (it == vars.end()) {
+                std::string name = "v" + std::to_string(count++);
+                vars[op->name] = name;
+                out_vars.emplace_back(op->type, name);
+                return Variable::make(op->type, name);
+            } else {
+                return Variable::make(op->type, it->second);
+            }
+        }
+
+        Expr visit(const Let *op) override {
+            std::string name = "v" + std::to_string(count++);
+            ScopedBinding<string> bind(lets, op->name, name);
+            return Let::make(name, mutate(op->value), mutate(op->body));
+        }
+
+        int count = 0;
+        map<string, string> vars;
+        Scope<string> lets;
+        std::vector<pair<Type, string>> out_vars;
+    } renamer;
     // Take a closer look at all failed proof attempts to hunt for
     // simplifier weaknesses
     const bool check_failed_proofs = debug::debug_level() > 0 || get_compiler_logger() != nullptr;
     if (check_failed_proofs && !is_const(e)) {
-        struct RenameVariables : public IRMutator {
-            using IRMutator::visit;
 
-            Expr visit(const Variable *op) override {
-                auto it = vars.find(op->name);
-                if (lets.contains(op->name)) {
-                    return Variable::make(op->type, lets.get(op->name));
-                } else if (it == vars.end()) {
-                    std::string name = "v" + std::to_string(count++);
-                    vars[op->name] = name;
-                    out_vars.emplace_back(op->type, name);
-                    return Variable::make(op->type, name);
-                } else {
-                    return Variable::make(op->type, it->second);
-                }
-            }
-
-            Expr visit(const Let *op) override {
-                std::string name = "v" + std::to_string(count++);
-                ScopedBinding<string> bind(lets, op->name, name);
-                return Let::make(name, mutate(op->value), mutate(op->body));
-            }
-
-            int count = 0;
-            map<string, string> vars;
-            Scope<string> lets;
-            std::vector<pair<Type, string>> out_vars;
-        } renamer;
 
         e = renamer.mutate(e);
 
@@ -431,9 +433,9 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
         debug(1) << "Failed to prove, but could not find a counter-example:\n " << e << "\n";
         debug(1) << "Original expression:\n"
                  << orig << "\n";
-        return false;
+        //return false;
     }
-
+    debug(1) << "[prove_dataset] " << renamer.mutate(the_orig) << "; " << is_const_one(e) << "[/prove_dataset]" << "\n";
     return is_const_one(e);
 }
 

@@ -2,6 +2,8 @@ CMakeUserPresets.json
 
 /tutorial/figures/tmp/trace.bin
 /apps/*/bin
+/apps/random_pipeline/results
+/apps/random_pipeline/.idea
 /apps/*/cmake_build
 /apps/HelloMatlab/blurred.png
 /apps/HelloMatlab/iir_blur.mex
