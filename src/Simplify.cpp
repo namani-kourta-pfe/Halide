@@ -5,7 +5,7 @@
 #include "CompilerLogger.h"
 #include "IRMutator.h"
 #include "Substitute.h"
-
+#include <chrono>  
 namespace Halide {
 namespace Internal {
 
@@ -14,6 +14,7 @@ using std::ostringstream;
 using std::pair;
 using std::string;
 using std::vector;
+using namespace std::chrono;
 
 #if (LOG_EXPR_MUTATIONS || LOG_STMT_MUTATIONS)
 int Simplify::debug_indent = 0;
@@ -361,6 +362,7 @@ Stmt simplify_exprs(const Stmt &s) {
 }
 
 bool can_prove(Expr e, const Scope<Interval> &bounds) {
+    auto start = high_resolution_clock::now();
     Expr the_orig = e;
     internal_assert(e.type().is_bool())
     << "Argument to can_prove is not a boolean Expr: " << e << "\n";
@@ -369,7 +371,6 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
     e = common_subexpression_elimination(e);
 
     Expr orig = e;
-
     e = simplify(e, true, bounds);
 
     struct RenameVariables : public IRMutator {
@@ -435,7 +436,9 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
                  << orig << "\n";
         //return false;
     }
-    debug(1) << "[prove_dataset] " << renamer.mutate(the_orig) << "; " << is_const_one(e) << "[/prove_dataset]" << "\n";
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    debug(1) << "[prove_dataset] " << renamer.mutate(the_orig) << ";" << is_const_one(e) << ";" << duration.count() << "[/prove_dataset]" << "\n";
     return is_const_one(e);
 }
 
