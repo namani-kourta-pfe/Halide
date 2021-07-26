@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_blas.a CMakeFiles/halide_blas.dir/halide_blas.cpp.o
+/usr/bin/ranlib libhalide_blas.a

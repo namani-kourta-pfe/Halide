@@ -1,0 +1,2 @@
+/usr/bin/ar qc libbilateral_grid.runtime.a bilateral_grid.runtime.o
+/usr/bin/ranlib libbilateral_grid.runtime.a

@@ -1,0 +1,11 @@
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain.update.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain.runtime.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/test.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain.generator.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain_auto_schedule.runtime.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain_auto_schedule.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain_auto_schedule.update.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/stencil_chain/build/CMakeFiles/stencil_chain_process.dir

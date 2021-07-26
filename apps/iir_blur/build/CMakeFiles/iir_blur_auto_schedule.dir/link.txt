@@ -1,0 +1,2 @@
+/usr/bin/ar qc libiir_blur_auto_schedule.a iir_blur_auto_schedule.o
+/usr/bin/ranlib libiir_blur_auto_schedule.a

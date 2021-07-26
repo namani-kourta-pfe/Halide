@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/blur/test.cpp
+cmath
+-
+cstdint
+-
+cstdio
+-
+emmintrin.h
+-
+arm_neon.h
+-
+HalideBuffer.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/blur/HalideBuffer.h
+halide_benchmark.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/blur/halide_benchmark.h
+halide_blur.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/blur/halide_blur.h
+
+/usr/local/share/tools/halide_benchmark.h
+algorithm
+-
+cassert
+-
+chrono
+-
+functional
+-
+limits
+-
+emscripten.h
+-
+
+halide_blur.h
+stdint.h
+-
+

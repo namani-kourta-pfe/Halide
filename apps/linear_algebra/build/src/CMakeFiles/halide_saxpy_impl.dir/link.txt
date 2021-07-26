@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_saxpy_impl.a halide_saxpy_impl.o
+/usr/bin/ranlib libhalide_saxpy_impl.a

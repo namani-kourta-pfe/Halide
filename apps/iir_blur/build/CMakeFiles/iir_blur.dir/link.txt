@@ -1,0 +1,2 @@
+/usr/bin/ar qc libiir_blur.a iir_blur.o
+/usr/bin/ranlib libiir_blur.a

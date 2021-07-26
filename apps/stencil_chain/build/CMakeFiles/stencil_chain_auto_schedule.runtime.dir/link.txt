@@ -1,0 +1,2 @@
+/usr/bin/ar qc libstencil_chain_auto_schedule.runtime.a stencil_chain_auto_schedule.runtime.o
+/usr/bin/ranlib libstencil_chain_auto_schedule.runtime.a

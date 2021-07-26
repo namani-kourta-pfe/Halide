@@ -1,0 +1,2 @@
+/usr/bin/ar qc libstencil_chain.runtime.a stencil_chain.runtime.o
+/usr/bin/ranlib libstencil_chain.runtime.a

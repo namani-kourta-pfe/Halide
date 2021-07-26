@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_sscal_impl.a halide_sscal_impl.o
+/usr/bin/ranlib libhalide_sscal_impl.a

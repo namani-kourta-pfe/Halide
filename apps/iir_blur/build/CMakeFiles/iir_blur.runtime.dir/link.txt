@@ -1,0 +1,2 @@
+/usr/bin/ar qc libiir_blur.runtime.a iir_blur.runtime.o
+/usr/bin/ranlib libiir_blur.runtime.a

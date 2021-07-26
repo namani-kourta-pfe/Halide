@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/linear_algebra/src/blas_l1_generators.cpp
+Halide.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/linear_algebra/src/Halide.h
+vector
+-
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/linear_algebra/src/blas_l2_generators.cpp
+Halide.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/linear_algebra/src/Halide.h
+vector
+-
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/linear_algebra/src/blas_l3_generators.cpp
+Halide.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/linear_algebra/src/Halide.h
+vector
+-
+
+/usr/local/share/tools/GenGen.cpp
+Halide.h
+/usr/local/share/tools/Halide.h
+

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/max_filter/max_filter_generator.cpp
+Halide.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/max_filter/Halide.h
+
+/usr/local/share/tools/GenGen.cpp
+Halide.h
+/usr/local/share/tools/Halide.h
+

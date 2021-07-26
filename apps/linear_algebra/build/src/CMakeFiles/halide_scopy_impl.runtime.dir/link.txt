@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_scopy_impl.runtime.a halide_scopy_impl.runtime.o
+/usr/bin/ranlib libhalide_scopy_impl.runtime.a

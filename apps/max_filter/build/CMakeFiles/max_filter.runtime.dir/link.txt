@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmax_filter.runtime.a max_filter.runtime.o
+/usr/bin/ranlib libmax_filter.runtime.a

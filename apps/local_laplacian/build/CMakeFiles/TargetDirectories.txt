@@ -1,0 +1,11 @@
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian.update.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian_auto_schedule.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian.runtime.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian.generator.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian_auto_schedule.update.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian_auto_schedule.runtime.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/local_laplacian_process.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/build/CMakeFiles/test.dir

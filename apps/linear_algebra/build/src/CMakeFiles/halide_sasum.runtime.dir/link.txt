@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_sasum.runtime.a halide_sasum.runtime.o
+/usr/bin/ranlib libhalide_sasum.runtime.a

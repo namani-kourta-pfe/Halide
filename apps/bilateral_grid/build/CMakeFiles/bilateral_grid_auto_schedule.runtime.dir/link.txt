@@ -1,0 +1,2 @@
+/usr/bin/ar qc libbilateral_grid_auto_schedule.runtime.a bilateral_grid_auto_schedule.runtime.o
+/usr/bin/ranlib libbilateral_grid_auto_schedule.runtime.a

@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/conv_layer/process.cpp
+chrono
+-
+cstdio
+-
+conv_layer.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/conv_layer/conv_layer.h
+conv_layer_auto_schedule.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/conv_layer/conv_layer_auto_schedule.h
+HalideBuffer.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/conv_layer/HalideBuffer.h
+halide_benchmark.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/conv_layer/halide_benchmark.h
+
+/usr/local/share/tools/halide_benchmark.h
+algorithm
+-
+cassert
+-
+chrono
+-
+functional
+-
+limits
+-
+emscripten.h
+-
+
+conv_layer.h
+stdint.h
+-
+
+conv_layer_auto_schedule.h
+stdint.h
+-
+

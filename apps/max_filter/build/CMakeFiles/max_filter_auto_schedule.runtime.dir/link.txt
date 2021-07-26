@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmax_filter_auto_schedule.runtime.a max_filter_auto_schedule.runtime.o
+/usr/bin/ranlib libmax_filter_auto_schedule.runtime.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libinterpolate_auto_schedule.runtime.a interpolate_auto_schedule.runtime.o
+/usr/bin/ranlib libinterpolate_auto_schedule.runtime.a

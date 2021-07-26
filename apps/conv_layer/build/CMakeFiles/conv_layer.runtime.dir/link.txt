@@ -1,0 +1,2 @@
+/usr/bin/ar qc libconv_layer.runtime.a conv_layer.runtime.o
+/usr/bin/ranlib libconv_layer.runtime.a

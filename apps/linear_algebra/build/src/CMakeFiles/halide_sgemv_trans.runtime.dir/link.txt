@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_sgemv_trans.runtime.a halide_sgemv_trans.runtime.o
+/usr/bin/ranlib libhalide_sgemv_trans.runtime.a

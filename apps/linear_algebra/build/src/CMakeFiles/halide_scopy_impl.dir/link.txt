@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_scopy_impl.a halide_scopy_impl.o
+/usr/bin/ranlib libhalide_scopy_impl.a

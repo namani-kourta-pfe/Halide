@@ -1,0 +1,2 @@
+/usr/bin/ar qc libconv_layer_auto_schedule.runtime.a conv_layer_auto_schedule.runtime.o
+/usr/bin/ranlib libconv_layer_auto_schedule.runtime.a

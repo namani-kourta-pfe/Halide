@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_dgemv_notrans.a halide_dgemv_notrans.o
+/usr/bin/ranlib libhalide_dgemv_notrans.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_ddot.a halide_ddot.o
+/usr/bin/ranlib libhalide_ddot.a

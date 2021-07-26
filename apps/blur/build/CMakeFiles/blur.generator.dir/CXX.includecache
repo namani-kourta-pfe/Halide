@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/blur/halide_blur_generator.cpp
+Halide.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/blur/Halide.h
+
+/usr/local/share/tools/GenGen.cpp
+Halide.h
+/usr/local/share/tools/Halide.h
+

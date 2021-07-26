@@ -1,0 +1,2 @@
+/usr/bin/ar qc libbilateral_grid.a bilateral_grid.o
+/usr/bin/ranlib libbilateral_grid.a

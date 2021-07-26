@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_sger_impl.a halide_sger_impl.o
+/usr/bin/ranlib libhalide_sger_impl.a

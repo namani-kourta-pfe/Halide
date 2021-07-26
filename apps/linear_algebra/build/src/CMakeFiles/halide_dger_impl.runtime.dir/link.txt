@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_dger_impl.runtime.a halide_dger_impl.runtime.o
+/usr/bin/ranlib libhalide_dger_impl.runtime.a

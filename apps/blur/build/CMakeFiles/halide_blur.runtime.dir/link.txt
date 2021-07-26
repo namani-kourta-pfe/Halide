@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_blur.runtime.a halide_blur.runtime.o
+/usr/bin/ranlib libhalide_blur.runtime.a

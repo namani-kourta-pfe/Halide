@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_daxpy_impl.a halide_daxpy_impl.o
+/usr/bin/ranlib libhalide_daxpy_impl.a

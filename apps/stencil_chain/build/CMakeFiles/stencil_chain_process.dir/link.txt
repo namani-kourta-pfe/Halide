@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/stencil_chain_process.dir/process.cpp.o -o stencil_chain_process  libstencil_chain.a libstencil_chain_auto_schedule.a /usr/lib/x86_64-linux-gnu/libpng.so /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libjpeg.so libstencil_chain.runtime.a libstencil_chain_auto_schedule.runtime.a -lpthread -ldl 

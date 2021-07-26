@@ -1,0 +1,2 @@
+/usr/bin/ar qc libinterpolate.runtime.a interpolate.runtime.o
+/usr/bin/ranlib libinterpolate.runtime.a

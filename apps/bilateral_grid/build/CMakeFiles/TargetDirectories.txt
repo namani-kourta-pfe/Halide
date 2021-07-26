@@ -1,0 +1,11 @@
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid.update.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid_auto_schedule.runtime.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid.runtime.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid_auto_schedule.update.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid_process.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid.generator.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/bilateral_grid_auto_schedule.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/test.dir
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/bilateral_grid/build/CMakeFiles/edit_cache.dir

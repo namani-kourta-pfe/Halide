@@ -6,6 +6,7 @@
 #include "IRMutator.h"
 #include "Substitute.h"
 #include <chrono>  
+#include<fstream>
 namespace Halide {
 namespace Internal {
 
@@ -371,7 +372,16 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
     e = common_subexpression_elimination(e);
 
     Expr orig = e;
+    /*
+        1- Simplify expression with Halide TRS
+        2- If not proved and doesn't have Halide specific functions:
+            1-Call Caviar
+        3-return result
+    */
+
     e = simplify(e, true, bounds);
+
+    auto stop = high_resolution_clock::now();
 
     struct RenameVariables : public IRMutator {
         using IRMutator::visit;
@@ -430,16 +440,22 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
         if (get_compiler_logger()) {
             get_compiler_logger()->record_failed_to_prove(e, orig);
         }
-
         debug(1) << "Failed to prove, but could not find a counter-example:\n " << e << "\n";
         debug(1) << "Original expression:\n"
                  << orig << "\n";
         //return false;
     }
-    auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    debug(1) << "[prove_dataset] " << renamer.mutate(the_orig) << ";" << is_const_one(e) << ";" << duration.count() << "[/prove_dataset]" << "\n";
-    return is_const_one(e);
+    std::ofstream expressions_file;
+    expressions_file.open("/home/adel/compiler_expressions.csv", std::ios_base::app);
+    auto result = is_const_one(e);
+    auto result2 = is_const(e);
+    if (! result2){
+        std::cout << "To the file:" << renamer.mutate(the_orig) << "\n";
+        expressions_file <<  renamer.mutate(the_orig) << "\n"; 
+    }
+    std::cerr << "[prove_dataset] " << renamer.mutate(the_orig) << ";" << renamer.mutate(e) << ";" << result << ";" << duration.count() << "[/prove_dataset]" << "\n";
+    return result;
 }
 
 }  // namespace Internal

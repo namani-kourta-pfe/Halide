@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblocal_laplacian_auto_schedule.a local_laplacian_auto_schedule.o
+/usr/bin/ranlib liblocal_laplacian_auto_schedule.a

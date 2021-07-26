@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/local_laplacian_generator.cpp
+Halide.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/Halide.h
+halide_trace_config.h
+/mnt/c/Users/DELL/code/PFE/extraction/Halide/apps/local_laplacian/halide_trace_config.h
+
+/usr/local/share/tools/GenGen.cpp
+Halide.h
+/usr/local/share/tools/Halide.h
+
+/usr/local/share/tools/halide_trace_config.h
+cmath
+-
+functional
+-
+iostream
+-
+limits
+-
+sstream
+-
+string
+-
+vector
+-
+HalideRuntime.h
+/usr/local/share/tools/HalideRuntime.h
+

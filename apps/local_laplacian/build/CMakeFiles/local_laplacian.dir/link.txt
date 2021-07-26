@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblocal_laplacian.a local_laplacian.o
+/usr/bin/ranlib liblocal_laplacian.a

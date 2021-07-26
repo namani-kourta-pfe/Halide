@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_ddot.runtime.a halide_ddot.runtime.o
+/usr/bin/ranlib libhalide_ddot.runtime.a

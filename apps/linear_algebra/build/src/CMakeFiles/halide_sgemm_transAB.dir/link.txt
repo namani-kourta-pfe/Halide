@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_sgemm_transAB.a halide_sgemm_transAB.o
+/usr/bin/ranlib libhalide_sgemm_transAB.a

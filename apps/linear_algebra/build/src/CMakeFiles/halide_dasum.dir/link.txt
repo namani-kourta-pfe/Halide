@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhalide_dasum.a halide_dasum.o
+/usr/bin/ranlib libhalide_dasum.a

@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/bilateral_grid_process.dir/filter.cpp.o -o bilateral_grid_process  libbilateral_grid.a libbilateral_grid_auto_schedule.a /usr/lib/x86_64-linux-gnu/libpng.so /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libjpeg.so libbilateral_grid.runtime.a libbilateral_grid_auto_schedule.runtime.a -lpthread -ldl 
