@@ -438,7 +438,7 @@ bool can_prove(Expr e, const Scope<Interval> &bounds) {
     }
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    debug(1) << "[prove_dataset] " << renamer.mutate(the_orig) << ";" << is_const(e) << ";" << duration.count() << "[/prove_dataset]" << "\n";
+    debug(1) << "[prove_dataset] " << renamer.mutate(the_orig) << ";" << is_const_one(e) << ";" << duration.count() << "[/prove_dataset]" << "\n";
     return is_const_one(e);
 }
 
